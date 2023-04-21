@@ -13,6 +13,8 @@
         <module>rocketmq-demo2</module>
         <module>rocketmq-demo3</module>
         <module>rocketmq-demo4</module>
+        <module>rocketmq-demo5</module>
+        <module>rocketmq-demo6</module>
     </modules>
 
     <properties>

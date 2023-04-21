@@ -6,6 +6,9 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * topic: 主题
+ * consumerGroup: 消费者组
+ *
  * @author H.Yang
  * @date 2023/4/20
  */
