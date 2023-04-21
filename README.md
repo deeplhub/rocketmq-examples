@@ -6,12 +6,29 @@
 
 ## 项目
 
-| #   | 目录                                 | 说明                    |
-|-----|------------------------------------| ------------------------- |
+| #   | 目录                                 | 说明                  |
+|-----|------------------------------------| ----------------------- |
 | 1   | [rocketmq-demo1](./rocketmq-demo1) | 原生用例 |
-| 2   | [rocketmq-demo2](./rocketmq-demo2) | 普通消息用例 |
+| 2   | [rocketmq-demo2](./rocketmq-demo2) | 普通消息 |
 | 3   | [rocketmq-demo3](./rocketmq-demo3) | 定时/延时消息 |
 | 4   | [rocketmq-demo4](./rocketmq-demo4) | 顺序消息 |
 | 5   | [rocketmq-demo5](./rocketmq-demo5) | 消息过滤 - Tag 消息 |
 | 6   | [rocketmq-demo6](./rocketmq-demo6) | 消息过滤 - SQL 消息 |
+| 7   | [rocketmq-demo7](./rocketmq-demo7) | 广播消息 |
+| 8   | [rocketmq-demo8](./rocketmq-demo8) | 重试消息 |
+| 9   |                                    | 死信消息 |
+| 7   |                                    | 全局异常 |
+| 7   |                                    | 事务消息 |
+| 7   |                                    | stream |
 | 7   |                                    |  |
+| 7   |                                    |  |
+
+
+
+
+
+
+
+
+
+

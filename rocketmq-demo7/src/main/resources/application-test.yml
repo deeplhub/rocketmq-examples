@@ -2,4 +2,4 @@ rocketmq:
   nameServer: 192.168.100.1:9876
   producer:
     #生产者组名，规定在一个应用里面必须唯一
-    group: orderly-group
+    group: broadcast-consumer-group

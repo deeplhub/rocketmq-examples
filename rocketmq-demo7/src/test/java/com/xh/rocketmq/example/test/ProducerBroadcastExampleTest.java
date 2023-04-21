@@ -17,20 +17,15 @@ import javax.annotation.Resource;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProducerOrderlyExampleTest {
+public class ProducerBroadcastExampleTest {
 
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
     @SneakyThrows
     @Test
-    public void producer() {
-        rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message1", "111111");
-        rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message2", "111111");
-        rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message3", "222222");
-        rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message4", "222222");
-        rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message5", "333333");
-
+    public void broadcastMessage() {
+        rocketMQTemplate.syncSend("broadcast-topic", "广播消息");
 
         Thread.sleep(5 * 1000);
     }
