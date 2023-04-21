@@ -13,5 +13,5 @@
 | 3   | [rocketmq-demo3](./rocketmq-demo3) | 定时/延时消息 |
 | 4   | [rocketmq-demo4](./rocketmq-demo4) | 顺序消息 |
 | 5   | [rocketmq-demo5](./rocketmq-demo5) | 消息过滤 - Tag 消息 |
-| 5   | [rocketmq-demo6](./rocketmq-demo6) | 消息过滤 - SQL 消息 |
-| 5   |                                    |  |
+| 6   | [rocketmq-demo6](./rocketmq-demo6) | 消息过滤 - SQL 消息 |
+| 7   |                                    |  |
