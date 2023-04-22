@@ -17,11 +17,10 @@
 | 7   | [rocketmq-demo7](./rocketmq-demo7)   | 广播消息          |
 | 8   | [rocketmq-demo8](./rocketmq-demo8)   | 重试消息          |
 | 9   | [rocketmq-demo9](./rocketmq-demo9)   | 死信消息（没搞出来）    |
-| 10  | [rocketmq-demo10](./rocketmq-demo10) | RocketMQ二次封装          |
-| 7   |                                      | 事务消息          |
-| 7   |                                      | stream        |
-| 7   |                                      |               |
-| 7   |                                      |               |
+| 10  | [rocketmq-demo10](./rocketmq-demo10) | RocketMQ二次封装  |
+| 11  | 待完成                                  | 事务消息          |
+| 12  | 待完成                                  | stream        |
+| 13  | 待完成                                  | 架构封装          |
 
 
 
