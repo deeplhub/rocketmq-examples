@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author H.Yang
@@ -22,11 +23,13 @@ public class ProducerRetryExampleTest {
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    @SneakyThrows
     @Test
+    @SneakyThrows
     public void retryMessage() {
-        rocketMQTemplate.syncSend("retry-topic4", "重试消息");
+        rocketMQTemplate.syncSend("retry-topic", "重试消息");
 
-        Thread.sleep(120 * 1000);
+        // 阻塞等待，保证消费
+        new CountDownLatch(1).await();
     }
+
 }

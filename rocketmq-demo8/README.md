@@ -16,7 +16,7 @@ RocketMQ 提供消费重试的机制。在消息消费失败的时候，RocketMQ
 
 > 注意
 
-只有集群消费模式下，才有消息重试。
+只有在消息模式为MessageModel.CLUSTERING集群模式时，Broker才会自动进行重试，广播消息是不会重试的。
 
 
 <br>

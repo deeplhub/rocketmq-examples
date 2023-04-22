@@ -7,7 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="rocketmq-demo10" />
         <module name="rocketmq-demo8" />
+        <module name="rocketmq-demo9" />
         <module name="rocketmq-demo4" />
         <module name="rocketmq-demo5" />
         <module name="rocketmq-demo6" />

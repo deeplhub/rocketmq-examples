@@ -17,6 +17,8 @@
         <module>rocketmq-demo6</module>
         <module>rocketmq-demo7</module>
         <module>rocketmq-demo8</module>
+        <module>rocketmq-demo9</module>
+        <module>rocketmq-demo10</module>
     </modules>
 
     <properties>
