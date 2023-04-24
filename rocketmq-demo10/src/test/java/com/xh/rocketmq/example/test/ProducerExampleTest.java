@@ -2,7 +2,6 @@ package com.xh.rocketmq.example.test;
 
 import com.xh.rocketmq.code.BaseMessageModel;
 import com.xh.rocketmq.code.ExtRocketMQTemplate;
-import com.xh.rocketmq.code.StorageRocketMQTemplate;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -26,8 +25,6 @@ public class ProducerExampleTest {
 
     @Resource
     private ExtRocketMQTemplate rocketmqTemplate;
-    @Resource
-    private StorageRocketMQTemplate storageRocketMQTemplate;
 
     /**
      * 通过实体类发送消息
@@ -36,18 +33,6 @@ public class ProducerExampleTest {
     @SneakyThrows
     public void orderMessage() {
         this.sendOrderMessage();
-
-        // 阻塞等待，保证消费
-        new CountDownLatch(1).await();
-    }
-
-    /**
-     * 注入对应业务的模板类
-     */
-    @Test
-    @SneakyThrows
-    public void storageMessage() {
-        storageRocketMQTemplate.sendStorageMessage();
 
         // 阻塞等待，保证消费
         new CountDownLatch(1).await();
