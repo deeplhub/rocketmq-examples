@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author H.Yang
@@ -25,20 +26,26 @@ public class ProducerExampleTest {
     private RocketMQTemplate rocketMQTemplate;
 
 
+    /**
+     * 同步消息
+     */
     @Test
+    @SneakyThrows
     public void syncMessages() {
-        // 同步消息
-        SendResult sendResult = rocketMQTemplate.syncSend("normal-topic", "Hello, World!");
+        SendResult sendResult = rocketMQTemplate.syncSend("normal-topic", "发送一条同步消息到消息队列");
         log.info("RocketMQ 主题：{}，响应：{}", "normal-topic", sendResult);
 
-        System.out.println();
+        // 阻塞等待，保证消费
+        new CountDownLatch(1).await();
     }
 
+    /**
+     * 异步消息
+     */
     @Test
     @SneakyThrows
     public void asyncMessages() {
-        // 异步消息
-        rocketMQTemplate.asyncSend("normal-topic", "Hello, World!", new SendCallback() {
+        rocketMQTemplate.asyncSend("normal-topic", "发送一条异步消息到消息队列", new SendCallback() {
 
             @Override
             public void onSuccess(SendResult sendResult) {
@@ -53,6 +60,20 @@ public class ProducerExampleTest {
             }
         });
 
-        Thread.sleep(5 * 1000);
+        // 阻塞等待，保证消费
+        new CountDownLatch(1).await();
     }
+
+    /**
+     * 发送单向消息
+     */
+    @Test
+    @SneakyThrows
+    public void sendOneWayMessage() {
+        rocketMQTemplate.sendOneWay("normal-topic", "发送一条发送单向消息到消息队列");
+
+        // 阻塞等待，保证消费
+        new CountDownLatch(1).await();
+    }
+
 }
