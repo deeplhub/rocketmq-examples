@@ -1,7 +1,6 @@
 package com.xh.rocketmq.example;
 
-import com.xh.rocketmq.code.BaseMQMessageListener;
-import com.xh.rocketmq.code.BaseMessageModel;
+import com.xh.rocketmq.model.BaseMessageModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;

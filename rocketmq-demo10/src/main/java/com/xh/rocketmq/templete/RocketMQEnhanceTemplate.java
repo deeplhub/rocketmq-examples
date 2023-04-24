@@ -1,7 +1,7 @@
-package com.xh.rocketmq.code;
+package com.xh.rocketmq.templete;
 
 import cn.hutool.json.JSONUtil;
-import lombok.AllArgsConstructor;
+import com.xh.rocketmq.model.BaseMessageModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -26,12 +26,15 @@ import org.springframework.stereotype.Component;
  * @date 2023/4/22
  */
 @Slf4j
-@AllArgsConstructor
 @Component
-public class ExtRocketMQTemplate {
-
+public class RocketMQEnhanceTemplate {
+    //    @Resource
+//    private RocketEnhanceProperties rocketEnhanceProperties;
     private RocketMQTemplate rocketmqTemplate;
 
+    public RocketMQEnhanceTemplate(RocketMQTemplate rocketmqTemplate) {
+        this.rocketmqTemplate = rocketmqTemplate;
+    }
 
     /**
      * 获取模板，如果封装的方法不够提供原生的使用方式
@@ -49,13 +52,31 @@ public class ExtRocketMQTemplate {
     }
 
 
+//    /**
+//     * 根据环境重新隔离topic
+//     *
+//     * @param topic 原始topic
+//     */
+//    private String reBuildTopic(String topic) {
+//        if (rocketEnhanceProperties.isEnabledIsolation() && StringUtils.hasText(rocketEnhanceProperties.getEnvironment())) {
+//            return topic + "_" + rocketEnhanceProperties.getEnvironment();
+//        }
+//        return topic;
+//    }
+
+
+    /**
+     * 发送同步消息
+     *
+     * @param topic
+     * @param tag
+     * @param model
+     * @param <T>
+     * @return
+     */
     public <T extends BaseMessageModel> SendResult send(String topic, String tag, T model) {
-        Message<T> sendMessage = MessageBuilder.withPayload(model).setHeader(RocketMQHeaders.KEYS, model.getKey()).build();
-        SendResult sendResult = rocketmqTemplate.syncSend(this.buildDestination(topic, tag), sendMessage);
 
-        log.info("[{}]同步消息[{}]发送结果[{}]", this.buildDestination(topic, tag), JSONUtil.toJsonStr(sendMessage), JSONUtil.toJsonStr(sendResult));
-
-        return sendResult;
+        return this.send(this.buildDestination(topic, tag), model);
     }
 
     public <T extends BaseMessageModel> SendResult send(String destination, T model) {
@@ -66,6 +87,22 @@ public class ExtRocketMQTemplate {
 
         return sendResult;
     }
+
+    /**
+     * 发送延迟消息
+     *
+     * @param topic
+     * @param tag
+     * @param message
+     * @param delayLevel
+     * @param <T>
+     * @return
+     */
+    public <T extends BaseMessageModel> SendResult send(String topic, String tag, T message, int delayLevel) {
+
+        return this.send(this.buildDestination(topic, tag), message, delayLevel);
+    }
+
 
     public <T extends BaseMessageModel> SendResult send(String destination, T model, int delayLevel) {
         Message<T> sendMessage = MessageBuilder.withPayload(model).setHeader(RocketMQHeaders.KEYS, model.getKey()).build();

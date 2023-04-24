@@ -1,4 +1,4 @@
-package com.xh.rocketmq.code;
+package com.xh.rocketmq.model;
 
 import lombok.Data;
 
@@ -23,7 +23,7 @@ public class BaseMessageModel {
      * 发送消息来源，用于排查问题
      */
 
-    protected String source;
+    protected String source = "";
 
     /**
      * 消息报文
