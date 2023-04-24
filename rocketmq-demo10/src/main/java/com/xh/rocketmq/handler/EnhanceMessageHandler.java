@@ -33,7 +33,7 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
     /**
      * 重试前缀
      */
-    private static final String RETRY_PREFIX = "retry_";
+    private static final String RETRY_PREFIX = "RETRY_";
 
     @Resource
     private RocketMQEnhanceTemplate enhanceTemplate;
@@ -144,43 +144,6 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
             this.handleRetry(message);
         }
     }
-//
-//    private void exceptionHandle(Exception e, T message) {
-//        log.error("消息消费异常", e);
-//        // 是捕获异常还是抛出，由子类决定
-//        if (this.isThrowException()) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        // 异常时是否重复发送
-//        if (!this.isRetry()) {
-//            return;
-//        }
-//
-//        // 获取子类RocketMQMessageListener注解拿到topic和tag
-//        RocketMQMessageListener annotation = this.getClass().getAnnotation(RocketMQMessageListener.class);
-//        if (Objects.isNull(annotation)) {
-//            return;
-//        }
-//
-//        message.setSource(message.getSource() + "消息重试");
-//        message.setRetryTimes(message.getRetryTimes() + 1);
-//
-//        SendResult sendResult;
-//        try {
-//            // 如果消息发送不成功，则再次重新发送，如果发送异常则抛出由MQ再次处理(异常时不走延迟消息)
-//            // 此处捕获之后，相当于此条消息被消息完成然后重新发送新的消息
-//            sendResult = rocketmqTemplate.send(rocketmqTemplate.buildDestination(annotation.topic(), annotation.selectorExpression()), message, this.retryDelayLevel());
-//        } catch (Exception ex) {
-//            throw new RuntimeException(ex);
-//        }
-//
-//        // 发送失败的处理就是不进行ACK，由RocketMQ重试
-//        if (sendResult.getSendStatus() != SendStatus.SEND_OK) {
-//            throw new RuntimeException("重试消息发送失败");
-//        }
-//    }
-
 
     protected void handleRetry(T message) {
         // 获取子类RocketMQMessageListener注解拿到topic和tag

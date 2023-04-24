@@ -1,14 +1,16 @@
 package com.xh.rocketmq.templete;
 
 import cn.hutool.json.JSONUtil;
+import com.xh.rocketmq.RocketEnhanceProperties;
 import com.xh.rocketmq.model.BaseMessageModel;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * RocketMQ模板类
@@ -26,15 +28,10 @@ import org.springframework.stereotype.Component;
  * @date 2023/4/22
  */
 @Slf4j
-@Component
+@AllArgsConstructor
 public class RocketMQEnhanceTemplate {
-    //    @Resource
-//    private RocketEnhanceProperties rocketEnhanceProperties;
+    private RocketEnhanceProperties rocketEnhanceProperties;
     private RocketMQTemplate rocketmqTemplate;
-
-    public RocketMQEnhanceTemplate(RocketMQTemplate rocketmqTemplate) {
-        this.rocketmqTemplate = rocketmqTemplate;
-    }
 
     /**
      * 获取模板，如果封装的方法不够提供原生的使用方式
@@ -52,17 +49,17 @@ public class RocketMQEnhanceTemplate {
     }
 
 
-//    /**
-//     * 根据环境重新隔离topic
-//     *
-//     * @param topic 原始topic
-//     */
-//    private String reBuildTopic(String topic) {
-//        if (rocketEnhanceProperties.isEnabledIsolation() && StringUtils.hasText(rocketEnhanceProperties.getEnvironment())) {
-//            return topic + "_" + rocketEnhanceProperties.getEnvironment();
-//        }
-//        return topic;
-//    }
+    /**
+     * 根据环境重新隔离topic
+     *
+     * @param topic 原始topic
+     */
+    private String buildTopic(String topic) {
+        if (rocketEnhanceProperties.isEnabledIsolation() && StringUtils.hasText(rocketEnhanceProperties.getEnvironment())) {
+            return topic + "_" + rocketEnhanceProperties.getEnvironment();
+        }
+        return topic;
+    }
 
 
     /**

@@ -2,10 +2,10 @@ rocketmq:
   nameServer: 192.168.200.11:9876
   producer:
     # 组名，规定在一个应用里面必须唯一
-    group: order-consumer-group
+    group: order_consumer_group
   enhance:
     # 启动隔离，用于激活配置类EnvironmentIsolationConfig
     # 启动后会自动在topic上拼接激活的配置文件，达到自动隔离的效果
-    enabledIsolation: true
+    enabledIsolation: false
     # 隔离环境名称，拼接到topic后，topic_dev，默认空字符串
     environment: local

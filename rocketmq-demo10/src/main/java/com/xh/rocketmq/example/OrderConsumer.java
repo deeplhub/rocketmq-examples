@@ -1,5 +1,6 @@
 package com.xh.rocketmq.example;
 
+import com.xh.rocketmq.handler.EnhanceMessageHandler;
 import com.xh.rocketmq.model.BaseMessageModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "order-topic", consumerGroup = "order-consumer-group")
-public class OrderConsumer extends BaseMQMessageListener<BaseMessageModel> implements RocketMQListener<BaseMessageModel> {
+@RocketMQMessageListener(topic = "order_topic", consumerGroup = "order_consumer_group")
+public class OrderConsumer extends EnhanceMessageHandler<BaseMessageModel> implements RocketMQListener<BaseMessageModel> {
 
     @Override
     protected void handleMessage(BaseMessageModel message) throws Exception {
@@ -23,7 +24,7 @@ public class OrderConsumer extends BaseMQMessageListener<BaseMessageModel> imple
     }
 
     @Override
-    protected void overMaxRetryTimesMessage(BaseMessageModel message) {
+    protected void handleMaxRetriesExceeded(BaseMessageModel message) {
         // 当超过指定重试次数消息时此处方法会被调用；生产中可以进行回退或其他业务操作
         log.info("{} - 当前消息超过重试次数", message.getKey());
     }
@@ -34,7 +35,7 @@ public class OrderConsumer extends BaseMQMessageListener<BaseMessageModel> imple
     }
 
     @Override
-    protected boolean isThrowException() {
+    protected boolean throwException() {
         // 是否抛出异常，到消费异常时是被父类拦截处理还是直接抛出异常
         return false;
     }
@@ -44,6 +45,13 @@ public class OrderConsumer extends BaseMQMessageListener<BaseMessageModel> imple
         // 指定需要的重试次数，超过重试次数overMaxRetryTimesMessage会被调用
         return 5;
     }
+
+    @Override
+    protected int getDelayLevel() {
+
+        return -1;
+    }
+
 
     @Override
     public void onMessage(BaseMessageModel message) {

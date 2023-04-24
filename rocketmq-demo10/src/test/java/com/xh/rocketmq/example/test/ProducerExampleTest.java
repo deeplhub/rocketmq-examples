@@ -1,7 +1,7 @@
 package com.xh.rocketmq.example.test;
 
 import com.xh.rocketmq.model.BaseMessageModel;
-import com.xh.rocketmq.code.ExtRocketMQTemplate;
+import com.xh.rocketmq.templete.RocketMQEnhanceTemplate;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -24,7 +23,7 @@ import java.util.concurrent.CountDownLatch;
 public class ProducerExampleTest {
 
     @Resource
-    private ExtRocketMQTemplate rocketmqTemplate;
+    private RocketMQEnhanceTemplate rocketmqTemplate;
 
     /**
      * 通过实体类发送消息
@@ -42,11 +41,9 @@ public class ProducerExampleTest {
         BaseMessageModel messageModel = new BaseMessageModel();
 
         messageModel.setKey(System.currentTimeMillis() + "");
-        messageModel.setSource("订单消息");
+        messageModel.setSource("ORDER");
         messageModel.setBody("发送一条订单消息到消息队列！");
-        messageModel.setSendTime(LocalDateTime.now());
-        messageModel.setRetryTimes(0);
 
-        return rocketmqTemplate.send("order-topic", messageModel);
+        return rocketmqTemplate.send("order_topic", messageModel);
     }
 }
