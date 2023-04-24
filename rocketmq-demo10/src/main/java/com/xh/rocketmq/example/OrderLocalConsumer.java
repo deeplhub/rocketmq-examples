@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RocketMQMessageListener(topic = "order_topic", consumerGroup = "order_consumer_group")
-public class OrderConsumer extends EnhanceMessageHandler<BaseMessageModel> implements RocketMQListener<BaseMessageModel> {
+@RocketMQMessageListener(topic = "order_topic_local", consumerGroup = "order_consumer_group")
+public class OrderLocalConsumer extends EnhanceMessageHandler<BaseMessageModel> implements RocketMQListener<BaseMessageModel> {
 
     @Override
     protected void handleMessage(BaseMessageModel message) throws Exception {

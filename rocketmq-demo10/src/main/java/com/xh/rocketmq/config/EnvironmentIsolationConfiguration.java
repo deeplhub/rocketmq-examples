@@ -1,6 +1,6 @@
 package com.xh.rocketmq.config;
 
-import com.xh.rocketmq.RocketEnhanceProperties;
+import com.xh.rocketmq.RocketMQEnvironmentProperties;
 import lombok.AllArgsConstructor;
 import org.apache.rocketmq.spring.support.DefaultRocketMQListenerContainer;
 import org.springframework.beans.BeansException;
@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
  */
 @AllArgsConstructor
 public class EnvironmentIsolationConfiguration implements BeanPostProcessor {
-    private RocketEnhanceProperties rocketEnhanceProperties;
+    private RocketMQEnvironmentProperties environmentProperties;
 
 
     /**
@@ -25,9 +25,9 @@ public class EnvironmentIsolationConfiguration implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof DefaultRocketMQListenerContainer) {
             DefaultRocketMQListenerContainer container = (DefaultRocketMQListenerContainer) bean;
-
-            if (rocketEnhanceProperties.isEnabledIsolation() && StringUtils.hasText(rocketEnhanceProperties.getEnvironment())) {
-                container.setTopic(String.join("_", container.getTopic(), rocketEnhanceProperties.getEnvironment()));
+            // 开启消息隔离情况下获取隔离配置，此处隔离topic，根据自己的需求隔离group或者tag
+            if (environmentProperties.isIsolation() && StringUtils.hasText(environmentProperties.getName())) {
+                container.setTopic(String.join("_", container.getTopic(), environmentProperties.getName()));
             }
             return container;
         }

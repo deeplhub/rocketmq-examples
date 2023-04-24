@@ -1,7 +1,7 @@
 package com.xh.rocketmq.templete;
 
 import cn.hutool.json.JSONUtil;
-import com.xh.rocketmq.RocketEnhanceProperties;
+import com.xh.rocketmq.RocketMQEnvironmentProperties;
 import com.xh.rocketmq.model.BaseMessageModel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
 @Slf4j
 @AllArgsConstructor
 public class RocketMQEnhanceTemplate {
-    private RocketEnhanceProperties rocketEnhanceProperties;
+    private RocketMQEnvironmentProperties rocketmqEnvironmentProperties;
     private RocketMQTemplate rocketmqTemplate;
 
     /**
@@ -55,8 +55,8 @@ public class RocketMQEnhanceTemplate {
      * @param topic 原始topic
      */
     private String buildTopic(String topic) {
-        if (rocketEnhanceProperties.isEnabledIsolation() && StringUtils.hasText(rocketEnhanceProperties.getEnvironment())) {
-            return topic + "_" + rocketEnhanceProperties.getEnvironment();
+        if (rocketmqEnvironmentProperties.isIsolation() && StringUtils.hasText(rocketmqEnvironmentProperties.getName())) {
+            return topic + "_" + rocketmqEnvironmentProperties.getName();
         }
         return topic;
     }

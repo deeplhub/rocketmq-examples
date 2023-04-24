@@ -3,9 +3,9 @@ rocketmq:
   producer:
     # 组名，规定在一个应用里面必须唯一
     group: order_consumer_group
-  enhance:
+  environment:
     # 启动隔离，用于激活配置类EnvironmentIsolationConfig
     # 启动后会自动在topic上拼接激活的配置文件，达到自动隔离的效果
-    enabledIsolation: false
-    # 隔离环境名称，拼接到topic后，topic_dev，默认空字符串
-    environment: local
+    isolation: true
+    # 隔离环境名称，拼接到topic后，xxx_topic_dev，默认空字符串
+    name: local
