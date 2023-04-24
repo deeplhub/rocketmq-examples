@@ -55,7 +55,6 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
     protected boolean isFilter(T message) {
 
         return false;
-
     }
 
     /**
