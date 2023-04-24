@@ -44,6 +44,6 @@ public class ProducerExampleTest {
         messageModel.setSource("ORDER");
         messageModel.setBody("发送一条订单消息到消息队列！");
 
-        return rocketmqTemplate.send("order_topic", messageModel);
+        return rocketmqTemplate.send("order_topic", "", messageModel);
     }
 }

@@ -40,6 +40,6 @@ public class BaseMessageModel {
     /**
      * 重试次数，用于判断重试次数，超过重试次数发送异常警告
      */
-    protected Integer retryTimes = 0;
+    protected Integer retryTimes = 1;
 
 }

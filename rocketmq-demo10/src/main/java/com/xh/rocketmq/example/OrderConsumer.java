@@ -43,7 +43,7 @@ public class OrderConsumer extends EnhanceMessageHandler<BaseMessageModel> imple
     @Override
     protected int maxRetryTimes() {
         // 指定需要的重试次数，超过重试次数overMaxRetryTimesMessage会被调用
-        return 5;
+        return 3;
     }
 
     @Override

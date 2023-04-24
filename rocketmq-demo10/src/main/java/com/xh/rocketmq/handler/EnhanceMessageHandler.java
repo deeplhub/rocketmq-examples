@@ -21,16 +21,6 @@ import java.time.Instant;
 public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
 
     /**
-     * 默认重试次数
-     */
-    private static final int MAX_RETRY_TIMES = 3;
-
-    /**
-     * 延时等级
-     */
-    private static final int DELAY_LEVEL = 5;
-
-    /**
      * 重试前缀
      */
     private static final String RETRY_PREFIX = "RETRY_";
@@ -91,20 +81,19 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
      */
 
     protected int maxRetryTimes() {
-
-        return MAX_RETRY_TIMES;
-
+        return 5;
     }
 
     /**
-     * isRetry开启时，重新入队延迟时间
+     * 获取延迟级别，默认延迟1分钟
+     * <p>
+     * -1：立即入队重试
      *
-     * @return -1：立即入队重试
+     * @return 默认延迟级别5（延迟时间1分钟）
      */
 
     protected int getDelayLevel() {
-
-        return DELAY_LEVEL;
+        return 5;
     }
 
     /**
@@ -115,7 +104,6 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
     public void dispatchMessage(T message) {
         // 基础日志记录被父类处理了
         log.info("消费者收到消息[{}]", JSONUtil.toJsonStr(message));
-
         if (this.isFilter(message)) {
             log.info("消息id{}不满足消费条件，已过滤。", message.getKey());
             return;
@@ -127,7 +115,6 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
             return;
         }
 
-
         try {
             long now = Instant.now().toEpochMilli();
             this.handleMessage(message);
@@ -137,8 +124,11 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
             log.error("消息{}消费异常", message.getKey(), e);
             // 是捕获异常还是抛出，由子类决定
             if (this.throwException()) {
-                //抛出异常
                 throw new RuntimeException(e);
+            }
+            // 异常时是否重复发送
+            if (!this.isRetry()) {
+                return;
             }
             // 此时如果不开启重试机制，则默认ACK了
             this.handleRetry(message);
@@ -151,6 +141,7 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
         if (annotation == null) {
             return;
         }
+
         //重新构建消息体
         String messageSource = message.getSource();
         if (!messageSource.startsWith(RETRY_PREFIX)) {
@@ -165,7 +156,6 @@ public abstract class EnhanceMessageHandler<T extends BaseMessageModel> {
             sendResult = enhanceTemplate.send(annotation.topic(), annotation.selectorExpression(), message, this.getDelayLevel());
         } catch (Exception ex) {
             // 此处捕获之后，相当于此条消息被消息完成然后重新发送新的消息
-            //由生产者直接发送
             throw new RuntimeException(ex);
         }
         // 发送失败的处理就是不进行ACK，由RocketMQ重试

@@ -44,7 +44,7 @@ public class RocketMQEnhanceTemplate {
      * 构建目的地
      */
     public String buildDestination(String topic, String tag) {
-
+        topic = this.buildTopic(topic);
         return topic + ":" + tag;
     }
 
