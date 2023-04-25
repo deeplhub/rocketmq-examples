@@ -14,6 +14,7 @@
         <module name="rocketmq-demo5" />
         <module name="rocketmq-demo6" />
         <module name="rocketmq-demo7" />
+        <module name="rocketmq-demo11" />
         <module name="rocketmq-demo1" />
         <module name="rocketmq-demo2" />
         <module name="rocketmq-demo3" />
