@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author H.Yang
@@ -32,6 +33,7 @@ public class ProducerOrderlyExampleTest {
         rocketMQTemplate.syncSendOrderly("orderly-topic", "Hello, Orderly message5", "333333");
 
 
-        Thread.sleep(5 * 1000);
+        // 阻塞等待，保证消费
+        new CountDownLatch(1).await();
     }
 }

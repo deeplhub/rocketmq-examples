@@ -1,0 +1,4 @@
+rocketmq:
+  nameServer: 192.168.200.11:9876
+  producer:
+    group: normal-group
