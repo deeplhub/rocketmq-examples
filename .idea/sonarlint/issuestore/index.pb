@@ -3,5 +3,21 @@
 Nrocketmq-demo1/src/test/java/com/xh/rocketmq/example/test/ConsumerExample.java,3\6\3615eacf12ac9644b9a2ad06ae4471327b22cd60
 ~
 Nrocketmq-demo1/src/test/java/com/xh/rocketmq/example/test/ProducerExample.java,0\4\04e4383f0503c259a14b36b3df3eb03f6e119bfc
-y
-Irocketmq-demo1/src/test/java/com/xh/rocketmq/example/test/StopThread.java,4\a\4a79c7d70a2b7dac574dcea802c2927f132f543c
+x
+Hrocketmq-demo7/src/main/java/com/xh/rocketmq/example/NoticeConsumer.java,1\8\18f788fa57c2b9856ed50257fd6fe2ce3ac95d88
+u
+Erocketmq-demo7/src/main/java/com/xh/rocketmq/example/LogConsumer.java,8\e\8ededbf926cb723b80a9d628e5ff2d1c78157c7e
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+‹
+[rocketmq-demo10/src/main/java/com/xh/rocketmq/config/EnvironmentIsolationConfiguration.java,b\0\b03d52d441e35abc416f8e410e5588d45462522e
+€
+Procketmq-demo10/src/main/java/com/xh/rocketmq/RocketMQEnvironmentProperties.java,c\9\c96d7eb44ec3a31000f8cbf8ce97825e8d04aa5f
+Š
+Zrocketmq-demo10/src/main/java/com/xh/rocketmq/config/RocketMQEnhanceAutoConfiguration.java,1\e\1ea3acf3952f6a3bba28003ef2d255366638d598
+x
+Hrocketmq-demo10/src/main/java/com/xh/rocketmq/example/OrderConsumer.java,1\f\1f67c285788a20bf88cae855bc6588b92404b2b1
+}
+Mrocketmq-demo10/src/main/java/com/xh/rocketmq/example/OrderLocalConsumer.java,6\0\600cf5799447acc9ee929132767ccbf92743f6de
+€
+Procketmq-demo10/src/main/java/com/xh/rocketmq/handler/EnhanceMessageHandler.java,2\3\23571b5f59601f9582fdcbf665f7023b45ddbeb8

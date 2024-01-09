@@ -6,6 +6,7 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -18,17 +19,21 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProducerBroadcastExampleTest {
+public class ProducerExampleTest {
 
     @Resource
-    private RocketMQTemplate rocketMQTemplate;
+    private RocketMQTemplate rocketmqTemplate;
 
-    @SneakyThrows
+    /**
+     * 通过实体类发送消息
+     */
     @Test
-    public void broadcastMessage() {
-        rocketMQTemplate.syncSend("broadcast-topic", "广播消息");
+    @SneakyThrows
+    public void orderMessage() {
+        rocketmqTemplate.syncSend("order_topic", MessageBuilder.withPayload("发送一条订单消息到消息队列").build());
 
         // 阻塞等待，保证消费
         new CountDownLatch(1).await();
     }
+
 }

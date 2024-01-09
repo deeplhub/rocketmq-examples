@@ -24,6 +24,8 @@ public class LogConsumer implements RocketMQListener<String> {
     @Override
     public void onMessage(String s) {
         log.info("LogConsumer onMessage: {}", s);
+
+        throw new RuntimeException("模拟异常");
     }
 
 }
