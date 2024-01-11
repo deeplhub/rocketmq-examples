@@ -18,24 +18,19 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProducerRetryExampleTest {
+public class ProducerDLQExampleTest {
 
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
     @Test
     @SneakyThrows
-    public void retryMessage() {
-        rocketMQTemplate.syncSend("retry-topic", "重试消息");
-
-        // 阻塞等待，保证消费
-        new CountDownLatch(1).await();
-    }
-
-    @Test
-    @SneakyThrows
     public void orderMessage() {
-        rocketMQTemplate.syncSend("order-topic", "重试消息");
+        for (int i = 0; i < 5; i++) {
+            rocketMQTemplate.syncSend("order-topic", "重试消息" + i);
+
+            Thread.sleep(2000);
+        }
 
         // 阻塞等待，保证消费
         new CountDownLatch(1).await();
